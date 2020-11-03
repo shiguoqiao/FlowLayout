@@ -164,7 +164,7 @@ public class TagFlowLayout extends FlowLayout
         mTagAdapter.unSelected(position, view.getTagView());
     }
 
-    private void doSelect(TagView child, int position) {
+    public void doSelect(TagView child, int position) {
         if (!child.isChecked()) {
             //处理max_select=1的情况
             if (mSelectedMax == 1 && mSelectedView.size() == 1) {
