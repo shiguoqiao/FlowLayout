@@ -2,16 +2,12 @@ package com.zhy.view.flowlayout;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.FrameLayout;
 
 import java.util.HashSet;
 import java.util.Iterator;
@@ -37,7 +33,7 @@ public class TagFlowLayout extends FlowLayout
     }
 
     public interface OnTagClickListener {
-        boolean onTagClick(View view, int position, FlowLayout parent);
+        boolean onTagClick(View view, HashSet<Integer> integers, int position, FlowLayout parent);
     }
 
     public TagFlowLayout(Context context, AttributeSet attrs, int defStyle) {
@@ -93,7 +89,7 @@ public class TagFlowLayout extends FlowLayout
         removeAllViews();
         TagAdapter adapter = mTagAdapter;
         TagView tagViewContainer = null;
-        HashSet preCheckedList = mTagAdapter.getPreCheckedList();
+        final HashSet preCheckedList = mTagAdapter.getPreCheckedList();
         for (int i = 0; i < adapter.getCount(); i++) {
             View tagView = adapter.getView(this, i, adapter.getItem(i));
 
@@ -133,7 +129,7 @@ public class TagFlowLayout extends FlowLayout
                 public void onClick(View v) {
                     doSelect(finalTagViewContainer, position);
                     if (mOnTagClickListener != null) {
-                        mOnTagClickListener.onTagClick(finalTagViewContainer, position,
+                        mOnTagClickListener.onTagClick(finalTagViewContainer, new HashSet<Integer>(preCheckedList), position,
                                 TagFlowLayout.this);
                     }
                 }
