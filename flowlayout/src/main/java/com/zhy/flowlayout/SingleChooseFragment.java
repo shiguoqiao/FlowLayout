@@ -12,7 +12,9 @@ import android.widget.Toast;
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
 import com.zhy.view.flowlayout.TagFlowLayout;
+import com.zhy.view.flowlayout.TagView;
 
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -56,10 +58,11 @@ public class SingleChooseFragment extends Fragment
         mFlowLayout.setOnTagClickListener(new TagFlowLayout.OnTagClickListener()
         {
             @Override
-            public boolean onTagClick(View view, int position, FlowLayout parent)
+            public boolean onTagClick(View view, HashSet<Integer> integers, int position, FlowLayout parent)
             {
                 Toast.makeText(getActivity(), mVals[position], Toast.LENGTH_SHORT).show();
                 //view.setVisibility(View.GONE);
+                mFlowLayout.doSelect((TagView)view,position);
                 return true;
             }
         });
